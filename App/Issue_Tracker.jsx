@@ -106,8 +106,8 @@ function Issue({parent_state, getResults}){
 
         }
         const request = {method:"POST", headers:{ "Content-Type": "application/json"}, body: JSON.stringify(data)}        
-        const consulta = await fetch(`${LINK}/api/issues/project`,request).catch(setState("Something went wrong :("))
-        const result = await consulta.json().catch(setState("Something went wrong :("))
+        const consulta = await fetch(`${LINK}/api/issues/project`,request).catch((e)=>e?setState("Something went wrong :("):undefined)
+        const result = await consulta.json().catch((e)=>e?setState("Something went wrong :("):undefined)
 
         setState(`Entry succesfully created. Your Issue id is ${result["_id"]}!`)  
 
@@ -137,8 +137,8 @@ function Issue({parent_state, getResults}){
         }
 
         const request = {method:"PUT", headers:{ "Content-Type": "application/json"}, body: JSON.stringify(data)}        
-        const consulta = await fetch(`${LINK}/api/issues/project`,request).catch(setState("Something went wrong :("))
-        const result = await consulta.json().catch(setState("Something went wrong :("))
+        const consulta = await fetch(`${LINK}/api/issues/project`,request).catch((e)=>e?setState("Something went wrong :("):undefined)
+        const result = await consulta.json().catch((e)=>e?setState("Something went wrong :("):undefined)
 
         setState("Entry successfully updated!")  
 
@@ -160,8 +160,8 @@ function Issue({parent_state, getResults}){
         const data = { _id : e.target[0].value}
 
         const request = {method:"DELETE", headers:{ "Content-Type": "application/json"}, body: JSON.stringify(data)}        
-        const consulta = await fetch(`${LINK}/api/issues/project`,request).catch(setState("Something went wrong :("))
-        const result = await consulta.json().catch(setState("Something went wrong :("))
+        const consulta = await fetch(`${LINK}/api/issues/project`,request).catch((e)=>e?setState("Something went wrong :("):undefined)
+        const result = await consulta.json().catch((e)=>e?setState("Something went wrong :("):undefined)
 
         setState("Entry successfully deleted!")  
 
@@ -261,11 +261,12 @@ function Issue_Table({parent_state,change_state, results}){
                                 <td>{entry["_id"]}</td>
                                 <td>{entry["issue_title"]}</td>
                                 <td>{entry["issue_text"]}</td>
-                                <td>{entry["created_on"]}</td>
-                                <td>{entry["updated_on"]}</td>
+                                {/* Spain's timezone */}
+                                <td>{new Date(entry["created_on"]).toLocaleString('en-GB', { timeZone: 'CET' })}</td>
+                                <td>{new Date(entry["updated_on"]).toLocaleString('en-GB', { timeZone: 'CET' })}</td>
                                 <td>{entry["created_by"]}</td>
                                 <td>{entry["assigned_to"]}</td>
-                                <td>{entry["open"]}</td>
+                                <td>{entry["open"]?"Yes":"Closed"}</td>
                                 <td>{entry["status_text"]}</td>
 
                             </tr>)}
