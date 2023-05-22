@@ -8,6 +8,16 @@ function Issue_Tracker({back}){
 
     const [state, setState] = useState("1")
     const [query, setQuery] = useState(false)
+    const [result, setResult] = useState([])
+
+    async function getResults(){
+        const consulta = await fetch(`${LINK}/api/issues/project`)
+        const result = await consulta.json()
+        setResult(result)
+
+    }
+
+    
 
     function select_option(e){
         setState(e.target.value)
@@ -29,8 +39,8 @@ function Issue_Tracker({back}){
                     <option value="3">Delete an Issue!</option>
                 </select>
                 <h3>Post an Issue!</h3>
-                <Issue parent_state={state}/>
-                <Issue_Table parent_state={query} change_state={change}/>
+                <Issue parent_state={state} getResults={getResults}/>
+                <Issue_Table parent_state={query} change_state={change} results={result}/>
                 <button onClick={back}>Return To Hub</button>
             </div>)
         //edit
@@ -44,8 +54,8 @@ function Issue_Tracker({back}){
                     <option value="3">Delete an Issue!</option>
                 </select>
                 <h3>Update an Issue!</h3>
-                <Issue parent_state={state}/>
-                <Issue_Table parent_state={query} change_state={change}/>
+                <Issue parent_state={state} getResults={getResults}/>
+                <Issue_Table parent_state={query} change_state={change} results={result}/>
                 
                 <button onClick={back}>Return To Hub</button>
             </div>)
@@ -60,8 +70,8 @@ function Issue_Tracker({back}){
                     <option value="3">Delete an Issue!</option>
                 </select>
                 <h3>Delete an Issue!</h3>
-                <Issue parent_state={state}/>
-                <Issue_Table parent_state={query} change_state={change}/>
+                <Issue parent_state={state} getResults={getResults}/>
+                <Issue_Table parent_state={query} change_state={change} results={result} />
                 
                 <button onClick={back}>Return To Hub</button>
             </div>)
@@ -70,9 +80,15 @@ function Issue_Tracker({back}){
     
 }
 
-function Issue({parent_state}){
+function Issue({parent_state, getResults}){
 
     const [state, setState] = useState("")
+
+    //only fetchs results when setResult is called
+    useEffect(()=>{
+        getResults()
+
+    },[state])
 
 
     //I use this functions instead of useEffect because the latter re renders the WHOLE app
@@ -143,7 +159,6 @@ function Issue({parent_state}){
 
         const data = { _id : e.target[0].value}
 
-        console.log(data)
         const request = {method:"DELETE", headers:{ "Content-Type": "application/json"}, body: JSON.stringify(data)}        
         const consulta = await fetch(`${LINK}/api/issues/project`,request).catch(setState("Something went wrong :("))
         const result = await consulta.json().catch(setState("Something went wrong :("))
@@ -219,24 +234,8 @@ function Issue({parent_state}){
 
 }
 
-function Issue_Table({parent_state,change_state}){
+function Issue_Table({parent_state,change_state, results}){
 
-    const [result, setResult] = useState([])
-
-    async function getResults(){
-        const consulta = await fetch(`${LINK}/api/issues/project`)
-        const result = await consulta.json()
-        setResult(result)
-
-    }
-
-    //only fetchs results when setResult is called
-    useEffect(()=>{
-        getResults()
-
-    },[])
-
-    
     if(parent_state){
         
         return( <div>
@@ -257,17 +256,17 @@ function Issue_Table({parent_state,change_state}){
 
                         </thead>
                         <tbody>
-                            {result.map(entry=><tr>
+                            {results.map(entry=><tr key={entry["_id"]}>
 
-                                <td key="_id">{entry["_id"]}</td>
-                                <td key="issue_title">{entry["issue_title"]}</td>
-                                <td key="issue_text" >{entry["issue_text"]}</td>
-                                <td key="created_on" >{entry["created_on"]}</td>
-                                <td key="updated_on" >{entry["updated_on"]}</td>
-                                <td key="created_by" >{entry["created_by"]}</td>
-                                <td key="assigned_to">{entry["assigned_to"]}</td>
-                                <td key="open"       >{entry["open"]}</td>
-                                <td key="status_text">{entry["status_text"]}</td>
+                                <td>{entry["_id"]}</td>
+                                <td>{entry["issue_title"]}</td>
+                                <td>{entry["issue_text"]}</td>
+                                <td>{entry["created_on"]}</td>
+                                <td>{entry["updated_on"]}</td>
+                                <td>{entry["created_by"]}</td>
+                                <td>{entry["assigned_to"]}</td>
+                                <td>{entry["open"]}</td>
+                                <td>{entry["status_text"]}</td>
 
                             </tr>)}
                         </tbody>
