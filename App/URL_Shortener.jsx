@@ -1,5 +1,7 @@
 import { useState } from "react"
 import LINK from "./Link.jsx"
+import manual_reset from "./manual_reset.js"
+
 
 
 function URL_Shortener({back}){
@@ -19,7 +21,7 @@ function URL_Shortener({back}){
         const result = await consulta.json()
 
         //manually reset the form!
-        document.getElementById("link_url").value=""
+        manual_reset(["link_url"])
 
         setState(result.short_url)  
         
