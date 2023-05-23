@@ -2,10 +2,28 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  box-sizing: border-box;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+
+  /* color palettes   */
+
+  /* dark mode */
+  --main-font: rgba(255, 255, 255, 0.87);
+  --main-back-color: #242424;
+  --button-color: #1a1a1a;
+  --button-border: #646cff;
+
+  /* light mode */
+
+  --main-font-light: #213547;
+  --main-back-color-light: #ffffff;
+  --link-hover-light: #747bff;
+  --button-color-light: #f9f9f9;
+
+  color: var(--main-font);
+  background-color: var(--main-back-color);
+  scroll-behavior: smooth;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,6 +32,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
+/* ------------------------------------- global settings ------------------------------------- */
 
 body {
   margin: 0;
@@ -25,6 +44,7 @@ body {
 
 h1 {
   text-align: center;
+  margin-bottom: 0.3%;
   font-size: 3.2em;
   line-height: 1.1;
 }
@@ -39,59 +59,103 @@ h1 {
   to {opacity: 100%;}
 }
 
+footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
 #app{
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5rem;
   text-align: center;
 }
 
-
 .app1 {
   animation-name: appear;
-  animation-duration: 1.2s;
+  /* animation-duration: 1.2s; activarlo en prod! */
 }
 
 .app2 {
   animation-name: disappear;
-  animation-duration: 1s;
+  /* animation-duration: 1.2s; activarlo en prod! */
 }
 
-#issues_table {
-  display: table;
-  border: 1px solid white;
-
-}
-
-
-button {
+button, input[type="submit"] {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--button-color);
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
+button:hover, input[type="submit"]:hover {
+  border-color: var(--button-border);
 }
-button:focus,
-button:focus-visible {
+button:focus, input[type="submit"]:focus
+button:focus-visible, input[type="submit"]:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--main-font-light);
+    background-color: var(--main-back-color-light);
   }
   a:hover {
-    color: #747bff;
+    color: var(--link-hover-light);
   }
-  button {
-    background-color: #f9f9f9;
+  button, input[type="submit"] {
+    background-color: var(--button-color-light);
   }
+}
+
+/* ------------------------------------- main_hub ------------------------------------- */
+
+#main_grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  list-style-type: none; /* Remove bullets */
+  padding: 0; 
+  margin-top: 1em; 
+}
+
+#main_grid_exp{
+  margin-top: 0%;
+}
+
+
+#main_grid div div{
+  height: 200px;
+  background-color: rgb(80, 32, 170);
+  margin: 1rem;
+}
+
+/* this will be an image later anyways */
+#main_grid div div:hover{
+  border: none;
+  box-shadow: none;
+  scale:100%
+}
+
+#main_grid div{
+  scale:100%;
+  transition: scale 0.5s;
+}
+
+#main_grid div:hover{
+  border: 1px solid var(--button-border);
+  box-shadow: 0 0 10px var(--button-border);
+  scale:105%
+}
+
+
+#issues_table {
+  display: table;
+  border: 1px solid white;
 }

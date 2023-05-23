@@ -20,6 +20,7 @@ function Main_Hub(){
 
         setTimeout(()=>{
             setState(event.target.id)
+
             document.getElementById("app").className="app1"
         },1000)
     }
@@ -52,13 +53,38 @@ function Main_Hub(){
         default:
             return (
                 <div id="main_grid_container">
+                    <p id="main_grid_exp">   
+                        This is a collection of api's I made in several courses. 
+                        I decided to group them all together and give them a nice UI.
+                        <br />
+                        Please feel free to use whichever you desire.
+                    </p>
                     <ul id="main_grid">
-                        <li id="header_parser"    onClick={(e)=>clickHandler(e)}>Header Parser</li>
-                        <li id="url_shortener"    onClick={(e)=>clickHandler(e)}>URL Shortener</li>
-                        <li id="metric_converter" onClick={(e)=>clickHandler(e)}>Metric Converter</li>
-                        <li id="issue_tracker"    onClick={(e)=>clickHandler(e)}>Issue Tracker</li>
-                        <li id="personal_library" onClick={(e)=>clickHandler(e)}>Personal Library</li>
-                        <li id="exercise_tracker" onClick={(e)=>clickHandler(e)}>Exercise Tracker</li>
+                        {/* onclick detects any of these ids so all of them need to be the same */}
+                        <div id="header_parser"   onClick={(e)=>clickHandler(e)}>
+                            <div id="header_parser"></div>
+                            <li id="header_parser">Header Parser</li>
+                        </div>
+                        <div id="url_shortener"    onClick={(e)=>clickHandler(e)}>
+                            <div id="url_shortener"></div>
+                            <li id="url_shortener">URL Shortener</li>
+                        </div>
+                        <div id="metric_converter" onClick={(e)=>clickHandler(e)}>
+                            <div id="metric_converter"></div>
+                            <li id="metric_converter">Metric Converter</li>
+                        </div>
+                        <div id="issue_tracker"    onClick={(e)=>clickHandler(e)}>
+                            <div id="issue_tracker"></div>
+                            <li id="issue_tracker">Issue Tracker</li>
+                        </div>
+                        <div id="personal_library" onClick={(e)=>clickHandler(e)}>
+                            <div id="personal_library"></div>
+                            <li id="personal_library">Personal Library</li>
+                        </div>
+                        <div id="exercise_tracker" onClick={(e)=>clickHandler(e)}>
+                            <div id="exercise_tracker"></div>
+                            <li id="exercise_tracker">Exercise Tracker</li>
+                        </div>
                     </ul>
                 </div>
             )
