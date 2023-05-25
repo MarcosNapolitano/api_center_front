@@ -8,10 +8,21 @@ function Header_Parser({back}){
     const [state, setState] = useState(false)
 
     return (<div>
-                <h1>Header Parser</h1>
+                <h2>Header Parser</h2>
+                <p id="main_grid_exp">   
+                    This App will show you your HTTP request header info.
+                    <br />
+                    Everytime you make a request on the internet, this info gets sended.
+                    <br />
+                    Press "Click Here!" to see the magic.
+                </p>
                 <Api_Result state={state}/>
-                <button onClick={()=>setState(!state)}>Click Here!</button>
-                <button onClick={back}>Return To Hub</button>
+                
+                <button className="button_header_parser" 
+                        onClick={()=>setState(!state)}>Click Here!</button>
+
+                <button className="button_header_parser" 
+                        onClick={back}>Return To Hub</button>
             </div>)
     
 }
@@ -37,7 +48,13 @@ function Api_Result({state}){
 
     if(state){
         getData()
-        return(<div>{data.map(data=><p key={data}>{data[0]}<br/>{data[1]}</p>)}</div>)
+        return(<div>{data.map(data=>
+                <p key={data}>
+                    <b>{data[0][0].toUpperCase()+data[0].slice(1)}:</b>
+                    <br/>
+                    {data[1]}
+                </p>)}
+            </div>)
     }
 
     return(<p></p>)

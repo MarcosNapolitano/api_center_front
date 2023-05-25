@@ -23,7 +23,7 @@ function Personal_Library({back}){
         const result = await consulta.json().catch((e)=>e?console.error(e):undefined)
         
 
-        document.getElementById(id).innerHTML=`Comments: ${result.comments}`
+        document.getElementById(id).innerHTML=`<b>Comments: </b>${result.comments}`
     }
 
     useEffect(()=>{
@@ -32,19 +32,33 @@ function Personal_Library({back}){
 
 
     return (<div>
-                <h1>Personal Library</h1>
+                <h2>Personal Library</h2>
+                <p id="main_grid_exp">   
+                    This App is connected to a <b>MongoDb</b> database. 
+                    It querys the database and posts books or comments depending on the fields submitted.
+                    <br />
+                    Click on the comment's numbers to see the actual comments!
+                </p>
                 
-                <Post_Book refresh={getBooks}/>
-                <Post_Comment refresh={getBooks}/>
+                <center>
+
+                    <h3>Post a new book!</h3>
+                    <Post_Book refresh={getBooks}/>
+                    
+                    <h3>Comment an existing book!</h3>
+                    <Post_Comment refresh={getBooks}/>
+                </center>
 
                 {/* logre hacer el display pero esta medio villero, revisarlo */}
-                {state.map((data,index)=><ul key={index}>
-                    <li>Title: {data.title}</li>
-                    <li>id: {data["_id"]}</li>
-                    <li id={data["_id"]} onClick={showComments}> Comments: {data.commentcount}</li>
-                </ul>)}
+                <div id="book_container">
+                    {state.map((data,index)=><ul key={index}>
+                        <li><b>Title:</b> {data.title}</li>
+                        <li><b>id:</b> {data["_id"]}</li>
+                        <li id={data["_id"]} onClick={showComments}><b>Comments:</b> {data.commentcount}</li>
+                    </ul>)}
+                </div>
 
-                <button onClick={back}>Return To Hub</button>
+                <button className="library" onClick={back}>Return To Hub</button>
             </div>)
     
 }
@@ -79,8 +93,8 @@ function Post_Book({refresh}){
 
     return(<form id="library_post_form" onSubmit={postBook}>
         <label id="book_label" htmlFor="book_name">Book's title: </label>
-        <input id="book_name" required placeholder="Submit a new book..."/>
-        <input type="submit" value="Post Book!"/>
+        <input className="library" id="book_name" required placeholder="Submit a new book..."/>
+        <input className="library" type="submit" value="Post Book!"/>
         <p>{state}</p>
     </form>)
 }
@@ -113,15 +127,14 @@ function Post_Comment({refresh}){
         
     }
 
-    return(<form id="library_post_form" onSubmit={postComment}>
+    return(<form id="library_comment_form" onSubmit={postComment}>
 
         <label id="book_id_label" htmlFor="book_id">Book's id: </label>
-        <input id="book_id" required placeholder="Submit a valid book's id..."/>
-
+        <input className="library" id="book_id" required placeholder="Submit a valid book's id..."/>
+        <br />
         <label id="book_comment_label" htmlFor="book_comment">Comment: </label>
-        <input id="book_comment" required placeholder="Submit a comment..."/>
-
-        <input type="submit" value="Post Comment!"/>
+        <input className="library" id="book_comment" required placeholder="Submit a comment..."/>
+        <input className="library" type="submit" value="Post Comment!"/>
         <p>{state}</p>
     </form>)
 }

@@ -19,10 +19,16 @@ function Metric_Converter({back}){
     }
 
     return (<div>
-                <h1>Metric Converter</h1>
+                <h2>Metric Converter</h2>
+                <p id="main_grid_exp">   
+                    This is a simple <b>Metric Converter</b>, just insert the number, select the unit and convert!
+                </p>
                 <form id="metric_form" onSubmit={convert}>
-                    <input id="metric_number" name="number" type="number" placeholder="Please insert value..."/>
-                    <select id="metric_units" name="units">
+
+                    <input className="metric" id="metric_number" name="number" 
+                           type="number" placeholder="Please insert value..."/>
+
+                    <select className="metric" id="metric_units" name="units">
                         <option value="l">Liters</option>
                         <option value="km">Kilometers</option>
                         <option value="kg">Kilograms</option>
@@ -30,10 +36,11 @@ function Metric_Converter({back}){
                         <option value="lbs">Pounds</option>
                         <option value="mi">Miles</option>
                     </select>
-                    <input type="submit" value="Convert!" />
+                    <br />
+                    <input className="metric" type="submit" value="Convert!" />
                 </form>
                 <p id="metric_result">{state}</p>
-                <button onClick={back}>Return To Hub</button>
+                <button className="metric" onClick={back}>Return To Hub</button>
 
             </div>)
     

@@ -17,8 +17,8 @@ function URL_Shortener({back}){
         //now I can write what I need
         const data = {url:e.target["link_url"].value}
         const request = {method:"POST", headers:{ "Content-Type": "application/json"}, body: JSON.stringify(data)}        
-        const consulta = await fetch(`${LINK}/api/urlshortener`,request)
-        const result = await consulta.json()
+        const consulta = await fetch(`${LINK}/api/urlshortener`,request).catch((e)=>e? console.log(e):undefined)
+        const result = await consulta.json().catch((e)=>e? console.log(e):undefined)
 
         //manually reset the form!
         manual_reset(["link_url"])
@@ -33,8 +33,8 @@ function URL_Shortener({back}){
         
         e.preventDefault()
         const number = e.target["link_number"].value;
-        const result = await fetch(`${LINK}/api/urlshortener/lastid`)
-        const result2 = await result.json()
+        const result = await fetch(`${LINK}/api/urlshortener/lastid`).catch((e)=>e? console.log(e):undefined)
+        const result2 = await result.json().catch((e)=>e? console.log(e):undefined)
 
         //redirects to api endpoint simulating the http response
         //can't use fetch here CORS won't let me
@@ -49,22 +49,28 @@ function URL_Shortener({back}){
     }
     
     return (<div>
-                <h1>URL Shortener</h1>
+                <h2>URL Shortener</h2>
+                <p id="main_grid_exp">   
+                    This App will let you post a link to website and then give you an <b>id</b> number.
+                    <br />
+                    Whenever you come back, you can submit that <b>id</b> number in the second field
+                    to visit the original link. 
+                </p>
                 <form id="link_form_post" onSubmit={makePost}>
                     
-                    <input type="url" id="link_url" placeholder="https://www.google.com/"/>
-                    <button value="test">Post Link!</button>
+                    <input className="url" type="url" id="link_url" placeholder="https://www.google.com"/>
+                    <input className="url" type="submit" value="Post Link!" />
                                        
                 </form>
 
                 <form id="link_form_redirect" onSubmit={getLink}>
                     
-                    <input type="number" id="link_number" placeholder="Submit a link number..." />
-                    <button value="test">Go!</button>
+                    <input className="url" type="number" id="link_number" placeholder="Submit a link number..." />
+                    <input className="url" type="submit" value="Go!" />
                                        
                 </form>
                 <URL_result state={state}/>
-                <button onClick={back}>Return To Hub</button>
+                <button className="url" onClick={back}>Return To Hub</button>
             </div>)
     
 }

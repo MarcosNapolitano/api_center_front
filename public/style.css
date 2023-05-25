@@ -10,9 +10,14 @@
 
   /* dark mode */
   --main-font: rgba(255, 255, 255, 0.87);
-  --main-back-color: #242424;
-  --button-color: #1a1a1a;
-  --button-border: #646cff;
+  --main-back-color1: #170e20;
+  --main-back-color2: #1e132f;
+  --accent1: #ef2b2e;
+  --accent2:  #82CC33;
+  --accent3: #33CCC9;
+  --button-color: #2b1b3a;
+  --input-background: #342246;
+  --backdrop: rgba(255, 255, 255, 0.07);
 
   /* light mode */
 
@@ -20,9 +25,10 @@
   --main-back-color-light: #ffffff;
   --link-hover-light: #747bff;
   --button-color-light: #f9f9f9;
+  --backdrop-light: rgba(0, 0, 0, 0.07);
 
   color: var(--main-font);
-  background-color: var(--main-back-color);
+  background-image: linear-gradient(var(--main-back-color1),var(--main-back-color2));
   scroll-behavior: smooth;
 
   font-synthesis: none;
@@ -49,6 +55,10 @@ h1 {
   line-height: 1.1;
 }
 
+h2{
+  font-size: 2em;
+}
+
 @keyframes disappear {
   from {opacity: 100%;}
   to {opacity: 0%;}
@@ -60,13 +70,32 @@ h1 {
 }
 
 footer{
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  /* position:absolute;
+  bottom: 1%; */
   width: 100%;
+  font-size: 1.1rem;
+  letter-spacing: .1rem;
+}
+
+footer p{
+  margin: 3px auto
+}
+
+footer center a{
+  text-decoration: none;
+  color:var(--main-font);
+  letter-spacing: 0;
+
+}
+
+footer i{
+  margin:5px;
+  vertical-align: middle;
+  font-size: 2rem;
 }
 
 #app{
+  min-height: 490px;
   max-width: 1280px;
   margin: 0 auto;
   padding: 1.5rem;
@@ -75,47 +104,84 @@ footer{
 
 .app1 {
   animation-name: appear;
-  /* animation-duration: 1.2s; activarlo en prod! */
+  animation-duration: 1.2s; 
 }
 
 .app2 {
   animation-name: disappear;
-  /* animation-duration: 1.2s; activarlo en prod! */
+  animation-duration: 1.2s; 
 }
 
-button, input[type="submit"] {
+
+button, input, select {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--button-color);
   cursor: pointer;
   transition: border-color 0.25s;
+
 }
-button:hover, input[type="submit"]:hover {
-  border-color: var(--button-border);
+
+button, select{
+  background-color: var(--button-color);
 }
-button:focus, input[type="submit"]:focus
-button:focus-visible, input[type="submit"]:focus-visible {
+
+input[type="submit"]{
+  width: auto;
+  background-color: var(--button-color);
+
+}
+
+input{
+  width:250px;
+  background-color: var(--input-background);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  appearance: initial;
+  -moz-appearance: textfield;
+}
+
+
+button:focus, input:focus,
+button:focus-visible, input:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+
+
+
 @media (prefers-color-scheme: light) {
   :root {
-    color: var(--main-font-light);
+    --main-font: var(--main-font-light);
+    --button-color: var(--button-color-light);
+    --backdrop: var(--backdrop-light);
+
+    /* este falta */
+    /* --button-border: var(--button-border); */
+
     background-color: var(--main-back-color-light);
+    background-image: none;
   }
   a:hover {
     color: var(--link-hover-light);
   }
-  button, input[type="submit"] {
-    background-color: var(--button-color-light);
-  }
+
 }
 
 /* ------------------------------------- main_hub ------------------------------------- */
+
 
 #main_grid{
   display: grid;
@@ -123,39 +189,296 @@ button:focus-visible, input[type="submit"]:focus-visible {
   list-style-type: none; /* Remove bullets */
   padding: 0; 
   margin-top: 1em; 
+
 }
 
 #main_grid_exp{
   margin-top: 0%;
+  padding: .5rem;
+  border-radius: 10px;
+  backdrop-filter: blur(1px);
+  background-color: var(--backdrop);
+
 }
 
+#main_grid >div{
+  scale:100%;  
+  color: var(--main-font);
+  transition: scale 0.5s, color 0.5s;
+}
+
+#main_grid > div:hover{
+  cursor:pointer;
+  scale:105%;
+
+}
+#main_grid > div:hover>div>.icon{
+  scale:115%;
+
+}
+
+/* ------------ color switching grid  ------------*/
+
+#main_grid > div#header_parser:hover{
+  border: 1px solid var(--accent1);
+  box-shadow: 0 0 10px var(--accent1);
+  color: var(--accent1);
+}
+
+#main_grid > div#url_shortener:hover{
+  border: 1px solid var(--accent3);
+  box-shadow: 0 0 10px var(--accent3);
+  color: var(--accent3);
+}
+
+#main_grid > div#metric_converter:hover{
+  border: 1px solid var(--accent2);
+  box-shadow: 0 0 10px var(--accent2);
+  color: var(--accent2);
+}
+
+#main_grid > div#issue_tracker:hover{
+  border: 1px solid var(--accent3);
+  box-shadow: 0 0 10px var(--accent3);
+  color: var(--accent3);
+}
+
+#main_grid > div#personal_library:hover{
+  border: 1px solid var(--accent2);
+  box-shadow: 0 0 10px var(--accent2);
+  color: var(--accent2);
+}
+
+#main_grid > div#exercise_tracker:hover{
+  border: 1px solid var(--accent1);
+  box-shadow: 0 0 10px var(--accent1);
+  color: var(--accent1);
+}
+
+#main_grid li{
+  margin: 0.5rem auto;
+}
 
 #main_grid div div{
-  height: 200px;
-  background-color: rgb(80, 32, 170);
+  height: 130px;
   margin: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* this will be an image later anyways */
-#main_grid div div:hover{
-  border: none;
-  box-shadow: none;
-  scale:100%
+.icon{
+  font-size: 6rem;
 }
 
-#main_grid div{
-  scale:100%;
-  transition: scale 0.5s;
+/* ------------------------------------- header_parser ------------------------------------- */
+
+.button_header_parser{
+  margin: 5px 10px;
 }
 
-#main_grid div:hover{
-  border: 1px solid var(--button-border);
-  box-shadow: 0 0 10px var(--button-border);
-  scale:105%
+.button_header_parser:hover{
+  border-color: var(--accent1);
+}
+
+/* ------------------------------------- URL_shortener ------------------------------------- */
+
+
+.url{
+  margin: 5px 10px;
+}
+
+.url:hover{
+  border-color: var(--accent3);
+}
+
+/* ------------------------------------- metric_converter ------------------------------------- */
+
+.metric{
+  margin: 5px 10px;
+}
+
+.metric:hover{
+  border-color: var(--accent2);
+}
+
+/* ------------------------------------- issue_tracker ------------------------------------- */
+
+.issue{
+  margin: 5px 10px;
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+.issue:hover{
+  border-color: var(--accent3);
+}
+
+#issue_form{
+  min-width: 320px;
+  width:40%;
+  margin: 10px;
+  padding: auto 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+
+}
+
+#issue_form >p{
+  font-weight: 600;
+  grid-column-start: 1;
+  grid-column-end: 3;
+
+}
+
+/* applies to bottom api's too */
+label{
+  font-weight: 700;
+  text-align: left;
+}
+
+#open{
+  width: 25px;
+  height: 25px;
+  background-color: var(--button-color-light);
 }
 
 
 #issues_table {
-  display: table;
-  border: 1px solid white;
+  min-width: 320px;
+  margin: 10px auto;
+  text-align: left;
+  border-collapse: collapse;
+  background-color: var(--button-color);
+
+}
+
+th,
+td{
+  padding:1rem;
+}
+
+th{
+  background: var(--main-back-color1);
+}
+
+tr:nth-of-type(2n){
+  background: var(--main-back-color2)
+}
+
+/* table responsivness */
+
+@media (max-width: 650px){
+  th{display: none;}
+
+  td{
+    display: block;
+    padding: .5rem 1rem;
+    text-align: center;
+  }
+
+  td:first-child{
+    padding-top: 1rem;
+  }
+
+  td:last-child{
+    padding-bottom: 1rem;
+  }
+
+  td::before{
+    /* populate with the table headers! */
+    content:attr(data-cell) ": ";
+    font-weight: 700;
+  }
+}
+
+
+/* ------------------------------------- personal_library ------------------------------------- */
+
+
+.library{
+  margin: 5px 10px;
+}
+
+.library:hover{
+  border-color: var(--accent2);
+}
+
+#library_comment_form{
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+}
+
+#book_container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: left;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+#book_container>ul>li{
+  list-style-type: none;
+}
+
+#book_container>ul{
+  background-color: var(--main-back-color1);
+
+}
+
+#book_container>ul:nth-of-type(2n){
+  background: var(--main-back-color2)
+}
+
+/* ------------------------------------- exercise_tracker ------------------------------------- */
+
+.exercise{
+  margin: 5px 10px;
+}
+
+.exercise:hover{
+  border-color: var(--accent1);
+}
+
+.exercise_form{
+  margin: 5px auto;
+  width: 60%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  text-align: left;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.exercise_form>input[type="submit"]{
+  grid-column-start: 4;
+  grid-column-end: 5;
+}
+
+#result_wrapper{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+#result_wrapper>ul>li{
+  list-style-type: none;
+}
+
+
+#result_wrapper>ul{
+  background-color: var(--main-back-color1);
+
+}
+
+#result_wrapper>ul:nth-of-type(2n){
+  background: var(--main-back-color2)
 }

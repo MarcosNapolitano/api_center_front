@@ -42,38 +42,42 @@ function Exercise_Tracker({back}){
         
     }
 
-    //if result someone made a query!
-    if(result){
-        return (<div>
-            <h1>Exercise Tracker</h1>
-            <h3>Add a new User</h3>
-            <Post_User />
-            <h3>Add a new Exercise</h3>
-            <Post_Exercise getAllResults={getAllResults}/>
-            <h3>View your exercises!</h3>
-            <Query_Exercises getResults={getResults} />
-            <h5>User {result.username} you have {result.count} exercises:</h5>
-            {result.log.map((data, index)=>
-                <ul key={index}>
-                    <li>Description: {data.description}</li>
-                    <li>Duration: {data.duration}min</li>
-                    <li>Date: {data.date}</li>
-                </ul>)}
-            <button onClick={back}>Return To Hub</button>
-        </div>)
-
-    }else{
-        return (<div>
-                <h1>Exercise Tracker</h1>
+    
+    return (<div>
+                <h2>Exercise Tracker</h2>
+                <p id="main_grid_exp">   
+                    This App is connected to a <b>MongoDb</b> database. 
+                    It querys the database and posts users or exercises depending on the fields submitted.
+                    <br />
+                    You can search your exercises in the last form and filter them by date or ammount.
+                </p>
                 <h3>Add a new User</h3>
                 <Post_User />
                 <h3>Add a new Exercise</h3>
                 <Post_Exercise getAllResults={getAllResults}/>
                 <h3>View your exercises!</h3>
                 <Query_Exercises getResults={getResults} />
-                <button onClick={back}>Return To Hub</button>
+
+                
+                {/* if result someone made a query! */}
+
+                {result? <h3>User {result.username} you have {result.count} exercises:</h3> : undefined}
+                {result? <div id="result_wrapper">
+                            {result.log.map((data, index)=>
+                                <ul key={index}>
+                                    <li>Description: {data.description}</li>
+                                    <li>Duration: {data.duration}min</li>
+                                    <li>Date: {data.date}</li>
+                                </ul>)}
+                          </div> : undefined}
+
+                {/* if result someone made a query! */}
+                
+                <button className="exercise" onClick={back}>Return To Hub</button>
+
             </div>)
-    }
+
+    
     
 }
 
@@ -101,9 +105,9 @@ function Post_User(){
 
     return (<form id="exercise_post_user" onSubmit={createUser}>
                 <label htmlFor="exercise_user">Username: </label>
-                <input id="exercise_user" required placeholder="Submit a new username..."/>
+                <input className="exercise" id="exercise_user" required placeholder="Submit a new username..."/>
 
-                <input  type="submit" value="Create User!"/>
+                <input className="exercise" type="submit" value="Create User!"/>
                 <p>{state}</p>
             </form>)
 }
@@ -152,49 +156,43 @@ function Post_Exercise({getAllResults}){
     }
 
 
-    return (<form id="exercise_post_exercise" onSubmit={addExercise}>
+    return (<form id="exercise_post_exercise" className="exercise_form" onSubmit={addExercise}>
                 <label htmlFor="exercise_id">Id: </label>
-                <input id="exercise_id" required placeholder="Insert your user id..."/>
+                <input className="exercise" id="exercise_id" required placeholder="Insert your user id..."/>
 
                 <label htmlFor="exercise_description">Description: </label>
-                <input id="exercise_description" required placeholder="Insert description..."/>
+                <input className="exercise" id="exercise_description" required placeholder="Insert description..."/>
 
                 <label htmlFor="exercise_duration">Duration: </label>
-                <input id="exercise_duration" required placeholder="Insert duration in mins..."/>
+                <input className="exercise" id="exercise_duration" required placeholder="Insert duration in mins..."/>
 
                 <label htmlFor="exercise_date">Date: </label>
-                <input id="exercise_date" type="date" placeholder="optional" />
+                <input className="exercise" id="exercise_date" type="date" placeholder="optional" />
 
-                <input  type="submit" value="Add Exercise!"/>
+                <input className="exercise" type="submit" value="Add Exercise!"/>
                 <p>{state}</p>
             </form>)
 }
 
 function Query_Exercises({getResults}){
 
-    return (<form id="exercise_query_exercise" onSubmit={getResults}>
+    return (<form id="exercise_query_exercise" className="exercise_form" onSubmit={getResults}>
                 <label htmlFor="exercise_id_query">Id: </label>
-                <input id="exercise_id_query" required placeholder="Insert your user id..."/>
+                <input className="exercise" id="exercise_id_query" required placeholder="Insert your user id..."/>
 
                 <label htmlFor="from">From: </label>
-                <input id="from" type="date" />
+                <input className="exercise" id="from" type="date" />
 
                 <label htmlFor="to">To: </label>
-                <input id="to" type="date" />
+                <input className="exercise" id="to" type="date" />
 
                 <label htmlFor="limit">Limit Results: </label>
-                <input id="limit" type="number" min="0" max="99" placeholder="optional" />
+                <input className="exercise" id="limit" type="number" min="0" max="99" placeholder="optional" />
 
-                <input  type="submit" value="Search!"/>
+                <input className="exercise" type="submit" value="Search!"/>
 
             </form>)
 }
 
-
-//get api/users/_id/logs te da los ejercicios
-//consultar tus ejercicios con filtro y todo desde hasta y limit
-
-
-//que se agreguen ejercicios
 
 export default Exercise_Tracker

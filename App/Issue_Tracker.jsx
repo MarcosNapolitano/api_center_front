@@ -27,55 +27,29 @@ function Issue_Tracker({back}){
        setQuery(!query)
     }
     //selects what to render deppending on the choice
-    switch(state){
-        //submit
-        case "1":
-            return (<div>
-                <h1>Issue Tracker</h1>
+
+    return (<div>
+                <h2>Issue Tracker</h2>
+                <p id="main_grid_exp">   
+                    This App will let you save your own entries ("Issues" in this case) to a project.
+                    This will generate an <b>id</b> number that you can use to edit or delete said entry.
+                    <br />
+                    To add a new Issue a <b>Title</b>, <b>Text</b> and <b>Creator Name</b> are required,
+                    wherearas to edit or delete an Issue only a valid <b>id</b> is necessary.
+                </p>
                 <p>Please select what you wish to do!</p>
-                <select id="option_selector" onChange={select_option}>
+                <select className="issue" id="option_selector" onChange={select_option}>
                     <option value="1">Submit an Issue!</option>
                     <option value="2">Edit an Issue!</option>
                     <option value="3">Delete an Issue!</option>
                 </select>
-                <h3>Post an Issue!</h3>
-                <Issue parent_state={state} getResults={getResults}/>
-                <Issue_Table parent_state={query} change_state={change} results={result}/>
-                <button onClick={back}>Return To Hub</button>
-            </div>)
-        //edit
-        case "2":
-            return (<div>
-                <h1>Issue Tracker</h1>
-                <p>Please select what you wish to do!</p>
-                <select id="option_selector" onChange={select_option}>
-                    <option value="1">Submit an Issue!</option>
-                    <option value="2">Edit an Issue!</option>
-                    <option value="3">Delete an Issue!</option>
-                </select>
-                <h3>Update an Issue!</h3>
-                <Issue parent_state={state} getResults={getResults}/>
-                <Issue_Table parent_state={query} change_state={change} results={result}/>
+                <center>
+                    <Issue parent_state={state} getResults={getResults}/>
                 
-                <button onClick={back}>Return To Hub</button>
+                    <Issue_Table parent_state={query} change_state={change} results={result}/>
+                </center>
+                <button className="issue" onClick={back}>Return To Hub</button>
             </div>)
-        //delete
-        case "3":
-            return (<div>
-                <h1>Issue Tracker</h1>
-                <p>Please select what you wish to do!</p>
-                <select id="option_selector" onChange={select_option}>
-                    <option value="1">Submit an Issue!</option>
-                    <option value="2">Edit an Issue!</option>
-                    <option value="3">Delete an Issue!</option>
-                </select>
-                <h3>Delete an Issue!</h3>
-                <Issue parent_state={state} getResults={getResults}/>
-                <Issue_Table parent_state={query} change_state={change} results={result} />
-                
-                <button onClick={back}>Return To Hub</button>
-            </div>)
-    }
 
     
 }
@@ -172,62 +146,51 @@ function Issue({parent_state, getResults}){
     }
 
     switch(parent_state){
+        //add new
         case "1":
-            return (<form id="issue_add_form" onSubmit={createIssue}>
-                        <label htmlFor="issue_title">Issue Title:</label>
-                        <input id="issue_title" required placeholder="Please submit a title for the issue..." />
-
-                        <label htmlFor="issue_text">Issue Text:</label>
-                        <input id="issue_text" required placeholder="Please submit a description for the issue..." />
-
-                        <label htmlFor="created_by">Submitted By:</label>
-                        <input id="created_by" required placeholder="Please submit a name for the submitter..." />
-
-                        <label htmlFor="assigned_to">Assigned To:</label>
-                        <input id="assigned_to" placeholder="Please submit a title for the issue...(optional)" />
-
-                        <label htmlFor="status_text">Status Text:</label>
-                        <input id="status_text" placeholder="Please submit a current status for the issue...(optional)" />
-                        
-                        <input id="submit_issue" type="submit" value="Create Issue!"/>
-                        <label>{state}</label>
-                    </form>)
+        //edit existing
         case "2":
-            return (<form id="issue_update_form" onSubmit={updateIssue}>
+            return (<form id="issue_form" onSubmit={parent_state==1?createIssue:updateIssue}>
 
-                        <label htmlFor="_id">Issue Id:</label>
-                        <input id="_id" type="number" min="0" required placeholder="Please submit a valid issue id..." />
+                        {parent_state==2? <label htmlFor="_id">Issue Id:</label>: undefined}
+                        {parent_state==2? <input className="issue" id="_id" type="number" min="0" required 
+                                           placeholder="Please submit a valid issue id..." /> : undefined}
 
                         <label htmlFor="issue_title">Issue Title:</label>
-                        <input id="issue_title" placeholder="Please submit a title for the issue..." />
+                        <input className="issue" id="issue_title" required={parent_state==1? true:false} 
+                               placeholder="Load time" />
 
                         <label htmlFor="issue_text">Issue Text:</label>
-                        <input id="issue_text" placeholder="Please submit a description for the issue..." />
+                        <input className="issue" id="issue_text" required={parent_state==1? true:false}
+                               placeholder="Page won't load fast enough" />
 
                         <label htmlFor="created_by">Submitted By:</label>
-                        <input id="created_by" placeholder="Please submit a name for the submitter..." />
+                        <input className="issue" id="created_by" required={parent_state==1? true:false} 
+                               placeholder="John" />
 
                         <label htmlFor="assigned_to">Assigned To:</label>
-                        <input id="assigned_to" placeholder="Please submit a title for the issue...(optional)" />
+                        <input className="issue" id="assigned_to" placeholder="Paul" />
 
                         <label htmlFor="status_text">Status Text:</label>
-                        <input id="status_text" placeholder="Please submit a current status for the issue...(optional)" />
+                        <input className="issue" id="status_text" placeholder="Fix this ASAP" />
 
-                        <input id="open" value="true" type="checkbox" />
-                        <label htmlFor="open">Click to close an Issue:</label>
-
+                        {parent_state==2? <label htmlFor="open">Click to close an Issue:</label> : undefined}
+                        {parent_state==2? <input className="issue" id="open" value="true" type="checkbox" /> : undefined}
                         
-                        <input id="submit_issue" type="submit" value="Update Issue!"/>
-                        <label>{state}</label>
+                        <input className="issue" id="submit_issue" type="submit" 
+                               value={parent_state==1?"Create Issue!":"Update Issue!"}/>
+
+                        <p>{state}</p>
                     </form>)
+        //delete
         case "3":
-            return (<form id="issue_update_form" onSubmit={deleteIssue}>
+            return (<form id="issue_form" onSubmit={deleteIssue}>
 
                         <label htmlFor="_id">Issue Id:</label>
-                        <input id="_id" type="number" min="0" required placeholder="Please submit a valid issue id..." />
+                        <input className="issue" id="_id" type="number" min="0" required placeholder="Please submit a valid issue id..." />
                         
-                        <input id="submit_issue" type="submit" value="Delete Issue!"/>
-                        <label>{state}</label>
+                        <input className="issue" id="submit_issue" type="submit" value="Delete Issue!"/>
+                        <p>{state}</p>
                     </form>)
 
     }
@@ -258,16 +221,16 @@ function Issue_Table({parent_state,change_state, results}){
                         <tbody>
                             {results.map(entry=><tr key={entry["_id"]}>
 
-                                <td>{entry["_id"]}</td>
-                                <td>{entry["issue_title"]}</td>
-                                <td>{entry["issue_text"]}</td>
+                                <td data-cell="id">{entry["_id"]}</td>
+                                <td data-cell="Title">{entry["issue_title"]}</td>
+                                <td data-cell="Text">{entry["issue_text"]}</td>
                                 {/* Spain's timezone */}
-                                <td>{new Date(entry["created_on"]).toLocaleString('en-GB', { timeZone: 'CET' })}</td>
-                                <td>{new Date(entry["updated_on"]).toLocaleString('en-GB', { timeZone: 'CET' })}</td>
-                                <td>{entry["created_by"]}</td>
-                                <td>{entry["assigned_to"]}</td>
-                                <td>{entry["open"]?"Yes":"Closed"}</td>
-                                <td>{entry["status_text"]}</td>
+                                <td data-cell="Created On">{new Date(entry["created_on"]).toLocaleString('en-GB', { timeZone: 'CET' })}</td>
+                                <td data-cell="Updated On">{new Date(entry["updated_on"]).toLocaleString('en-GB', { timeZone: 'CET' })}</td>
+                                <td data-cell="Created By">{entry["created_by"]}</td>
+                                <td data-cell="Assigned To">{entry["assigned_to"]}</td>
+                                <td data-cell="Open">{entry["open"]?"Yes":"Closed"}</td>
+                                <td data-cell="Status">{entry["status_text"]}</td>
 
                             </tr>)}
                         </tbody>
@@ -275,7 +238,7 @@ function Issue_Table({parent_state,change_state, results}){
                 </div>)
 
     }else{
-        return( <div><button onClick={change_state}>Show Current Issues!</button></div>)
+        return( <div><button className="issue" onClick={change_state}>Show Current Issues!</button></div>)
 
     }
     
