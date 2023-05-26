@@ -10,7 +10,7 @@ function Header_Parser({back}){
     return (<div>
                 <h2>Header Parser</h2>
                 <p id="main_grid_exp">   
-                    This App will show you your HTTP request header info.
+                    This App will show your HTTP request header info.
                     <br />
                     Everytime you make a request on the internet, this info gets sended.
                     <br />

@@ -6,6 +6,8 @@ import LINK from "./Link.jsx"
 function Personal_Library({back}){
 
     const [state, setState] = useState([])
+    const [comment, setComment] = useState(false)
+
 
     async function getBooks(){
 
@@ -21,9 +23,18 @@ function Personal_Library({back}){
         const id = e.target.id
         const consulta = await fetch(`${LINK}/api/library/books/${id}`).catch((e)=>e?console.error(e):undefined)
         const result = await consulta.json().catch((e)=>e?console.error(e):undefined)
-        
 
-        document.getElementById(id).innerHTML=`<b>Comments: </b>${result.comments}`
+        if(comment){
+
+            document.getElementById(id).innerHTML=`<b>Comments: </b>${result.comments.length}`
+
+            setComment(false)
+
+        }else{
+
+            document.getElementById(id).innerHTML=`<b>Comments: </b>${result.comments}`
+            setComment(true)
+        }
     }
 
     useEffect(()=>{
@@ -93,8 +104,8 @@ function Post_Book({refresh}){
 
     return(<form id="library_post_form" onSubmit={postBook}>
         <label id="book_label" htmlFor="book_name">Book's title: </label>
-        <input className="library" id="book_name" required placeholder="Submit a new book..."/>
-        <input className="library" type="submit" value="Post Book!"/>
+        <input className="library" type="text" id="book_name" required placeholder="Submit a new book..."/>
+        <input className="library" type="submit" value="Post!"/>
         <p>{state}</p>
     </form>)
 }
@@ -130,11 +141,11 @@ function Post_Comment({refresh}){
     return(<form id="library_comment_form" onSubmit={postComment}>
 
         <label id="book_id_label" htmlFor="book_id">Book's id: </label>
-        <input className="library" id="book_id" required placeholder="Submit a valid book's id..."/>
+        <input className="library" type="text" id="book_id" required placeholder="Submit a valid book's id..."/>
         <br />
         <label id="book_comment_label" htmlFor="book_comment">Comment: </label>
-        <input className="library" id="book_comment" required placeholder="Submit a comment..."/>
-        <input className="library" type="submit" value="Post Comment!"/>
+        <input className="library" type="text"  id="book_comment" required placeholder="Submit a comment..."/>
+        <input className="library" id="comment_submit" type="submit" value="Post!"/>
         <p>{state}</p>
     </form>)
 }

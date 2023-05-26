@@ -40,23 +40,34 @@
 
 /* ------------------------------------- global settings ------------------------------------- */
 
-body {
+html{
   margin: 0;
+  min-height: 100vh;
+}
+
+body {
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  min-width: 320px;
+  justify-content: center;
   min-height: 100vh;
+  
 }
 
 h1 {
   text-align: center;
   margin-bottom: 0.3%;
-  font-size: 3.2em;
+  font-size: 7vh;
   line-height: 1.1;
+
 }
 
 h2{
-  font-size: 2em;
+  font-size: 5vh;
+}
+
+h3{
+  font-size: 2.4vh;
 }
 
 @keyframes disappear {
@@ -70,14 +81,15 @@ h2{
 }
 
 footer{
-  /* position:absolute;
-  bottom: 1%; */
+  margin-top:auto;
+  margin-bottom: .4%;
   width: 100%;
-  font-size: 1.1rem;
+  font-size: 2.3vh;
   letter-spacing: .1rem;
 }
 
 footer p{
+  font-size: 2.3vh;
   margin: 3px auto
 }
 
@@ -91,12 +103,12 @@ footer center a{
 footer i{
   margin:5px;
   vertical-align: middle;
-  font-size: 2rem;
+  font-size: 3.5vh;
 }
 
 #app{
-  min-height: 490px;
-  max-width: 1280px;
+  min-height: 90%;
+  max-width: 80%;
   margin: 0 auto;
   padding: 1.5rem;
   text-align: center;
@@ -112,12 +124,16 @@ footer i{
   animation-duration: 1.2s; 
 }
 
+p, label{
+  font-size: 2.1vh;
+}
+
 
 button, input, select {
-  border-radius: 8px;
+  border-radius: 7px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
+  font-size: 2.1vh;
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
@@ -136,7 +152,7 @@ input[type="submit"]{
 }
 
 input{
-  width:250px;
+  width:34.5%;
   background-color: var(--input-background);
 }
 
@@ -158,9 +174,6 @@ button:focus, input:focus,
 button:focus-visible, input:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
-
-
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -188,12 +201,12 @@ button:focus-visible, input:focus-visible {
   grid-template-columns: 1fr 1fr 1fr;
   list-style-type: none; /* Remove bullets */
   padding: 0; 
-  margin-top: 1em; 
+  margin-top: 2.1vh; 
 
 }
 
 #main_grid_exp{
-  margin-top: 0%;
+  margin: .6% auto;
   padding: .5rem;
   border-radius: 10px;
   backdrop-filter: blur(1px);
@@ -256,11 +269,12 @@ button:focus-visible, input:focus-visible {
 }
 
 #main_grid li{
+  font-size: 2.1vh;
   margin: 0.5rem auto;
 }
 
 #main_grid div div{
-  height: 130px;
+  height: 17.1vh;
   margin: 1rem;
   display: flex;
   justify-content: center;
@@ -268,8 +282,32 @@ button:focus-visible, input:focus-visible {
 }
 
 .icon{
-  font-size: 6rem;
+  font-size: 13vh;
 }
+
+@media (max-width: 768px){
+
+  #main_grid_exp{
+    width:80%
+  }
+
+}
+
+@media (max-width: 426px){
+
+
+  #main_grid{
+    grid-template-columns: 1fr 1fr;
+
+  }
+  #main_grid>div{
+    width:40vw;
+
+  }
+
+
+}
+
 
 /* ------------------------------------- header_parser ------------------------------------- */
 
@@ -292,6 +330,16 @@ button:focus-visible, input:focus-visible {
   border-color: var(--accent3);
 }
 
+@media (max-width: 426px){
+
+
+  input#link_url{
+    width: 70%;
+  }
+
+
+}
+
 /* ------------------------------------- metric_converter ------------------------------------- */
 
 .metric{
@@ -300,6 +348,16 @@ button:focus-visible, input:focus-visible {
 
 .metric:hover{
   border-color: var(--accent2);
+}
+
+@media (max-width: 426px){
+
+
+  input#metric_number{
+    width: 70%;
+  }
+
+
 }
 
 /* ------------------------------------- issue_tracker ------------------------------------- */
@@ -315,14 +373,18 @@ button:focus-visible, input:focus-visible {
 }
 
 #issue_form{
-  min-width: 320px;
-  width:40%;
+  width:50%;
   margin: 10px;
   padding: auto 50px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
+  justify-content: center;
   align-items: center;
 
+}
+
+#issue_form >input{
+  width:100%
 }
 
 #issue_form >p{
@@ -339,16 +401,16 @@ label{
 }
 
 #open{
-  width: 25px;
-  height: 25px;
+  width: 90%;
+  height: 90%;
   background-color: var(--button-color-light);
 }
 
 
 #issues_table {
-  min-width: 320px;
   margin: 10px auto;
   text-align: left;
+  font-size: 2.1vh;
   border-collapse: collapse;
   background-color: var(--button-color);
 
@@ -393,6 +455,25 @@ tr:nth-of-type(2n){
   }
 }
 
+@media (max-width: 769px){
+
+  #issues_table{
+    font-size: 1.8vh;
+  }
+
+}
+
+@media (max-width: 426px){
+
+  #issue_form{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+
+  }
+
+}
+
 
 /* ------------------------------------- personal_library ------------------------------------- */
 
@@ -406,10 +487,29 @@ tr:nth-of-type(2n){
 }
 
 #library_comment_form{
-  width: 50%;
+  width: 65%;
+  margin: 0% auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
+  justify-content: center;
   align-items: center;
+}
+
+#library_post_form{
+  width: 60%;
+  margin: 0% auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+#library_post_form >input[type="text"]{
+  width:80%
+}
+
+#library_comment_form >input[type="text"]{
+  width:80%
 }
 
 #book_container{
@@ -421,8 +521,11 @@ tr:nth-of-type(2n){
   
 }
 
+
+
 #book_container>ul>li{
   list-style-type: none;
+  font-size: 2.1vh;
 }
 
 #book_container>ul{
@@ -433,6 +536,52 @@ tr:nth-of-type(2n){
 #book_container>ul:nth-of-type(2n){
   background: var(--main-back-color2)
 }
+
+
+@media (max-width: 769px){
+
+  #issue_form{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  #library_post_form{
+
+    width: 80%;
+
+  }
+
+  #library_comment_form{
+    width: 80%;
+  }
+
+  #book_container>ul{
+    padding: 1em;
+  }
+  
+
+}
+
+@media (max-width: 450px){
+
+  #library_post_form, #library_comment_form{
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  #book_container{
+    display: flex;
+    flex-direction: column;
+
+    
+  }
+
+}
+
+
 
 /* ------------------------------------- exercise_tracker ------------------------------------- */
 
@@ -446,13 +595,18 @@ tr:nth-of-type(2n){
 
 .exercise_form{
   margin: 5px auto;
-  width: 60%;
+  width: 100%;
+  gap:5px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr 2fr;
   text-align: left;
   align-items: center;
   justify-content: center;
   
+}
+
+.exercise_form>input{
+  width:75%
 }
 
 .exercise_form>input[type="submit"]{
@@ -470,15 +624,34 @@ tr:nth-of-type(2n){
 }
 
 #result_wrapper>ul>li{
+  font-size: 2.1vh;
   list-style-type: none;
 }
 
 
 #result_wrapper>ul{
+  padding: 1em;
   background-color: var(--main-back-color1);
 
 }
 
 #result_wrapper>ul:nth-of-type(2n){
   background: var(--main-back-color2)
+}
+
+
+@media (max-width: 450px){
+
+  .exercise_form{
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  #result_wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+
+
 }

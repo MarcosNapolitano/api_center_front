@@ -6,6 +6,8 @@ import manual_reset from "./manual_reset.js"
 function Exercise_Tracker({back}){
 
     const [result, setResult] = useState()
+    const [error, setError] = useState()
+
 
 
     async function getResults(e){
@@ -20,7 +22,7 @@ function Exercise_Tracker({back}){
         }
 
         const consulta = await fetch(`${LINK}/api/exercise/users/${data["_id"]}/logs?from=${data.from}&to=${data.to}&limit=${data.limit}`)
-                               .catch((e)=>e?"Something went wrong :(":undefined)
+                               .catch((e)=>e? console.log(e)&&setError("User Not Found") :undefined)
         const result = await consulta.json().catch((e)=>e?"Something went wrong :(":undefined)
 
         setResult(result)
@@ -60,14 +62,15 @@ function Exercise_Tracker({back}){
 
                 
                 {/* if result someone made a query! */}
+                {error? <p>{error}</p> : undefined}
 
                 {result? <h3>User {result.username} you have {result.count} exercises:</h3> : undefined}
                 {result? <div id="result_wrapper">
                             {result.log.map((data, index)=>
                                 <ul key={index}>
-                                    <li>Description: {data.description}</li>
-                                    <li>Duration: {data.duration}min</li>
-                                    <li>Date: {data.date}</li>
+                                    <li><b>Description:</b> {data.description}</li>
+                                    <li><b>Duration:</b> {data.duration}min</li>
+                                    <li><b>Date:</b> {data.date}</li>
                                 </ul>)}
                           </div> : undefined}
 
