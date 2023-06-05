@@ -1,3 +1,3 @@
-const LINK = "http://localhost:8000";
+const LINK = "https://marcos-napolitano-apicenter.up.railway.app";
 
 export default LINK;
