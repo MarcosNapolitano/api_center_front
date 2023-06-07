@@ -12,7 +12,7 @@ function Metric_Converter({back}){
         e.preventDefault()
         const number = e.target[0].value
         const unit = e.target[1].value
-        const consulta = await fetch(`${LINK}/api/convert/convert?input=${number}${unit}`)
+        const consulta = await fetch(`${LINK}/api/convert/convert?input=${number}${unit}`).catch((e)=>console.log(e))
         const result = await consulta.json()
 
         setState(result.string)

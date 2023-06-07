@@ -60,7 +60,7 @@ function Personal_Library({back}){
                     <Post_Comment refresh={getBooks}/>
                 </center>
 
-                {/* logre hacer el display pero esta medio villero, revisarlo */}
+                {/* check display */}
                 <div id="book_container">
                     {state.map((data,index)=><ul key={index}>
                         <li><b>Title:</b> {data.title}</li>
