@@ -29,7 +29,7 @@ This is my first experience with react hooks, up to this point I have always use
 7. Now the app is running at `localhost:5173/api_center_front/`.
 
 
-*Disclaimer: I'm using a personal kit from FontAwesome for the Twitter icon. I currently don't know if forking this repo without my FontAwesome's user will break this feature, but if that's the case, you have to set up the icon manually.*
+*Disclaimer: I'm using a personal kit from FontAwesome for both LinkedIn and Github's icons. I currently don't know if forking this repo without my FontAwesome's user will break this feature, but if that's the case, you have to set up said icons manually.*
 
 ## Docs
 
